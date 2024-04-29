@@ -167,7 +167,7 @@ function initialize_block!(cb::Colorbar)
             if mapping_type === Makie.banded
                 error("Banded without a mapping is invalid. Please use colormap=cgrad(...; categorical=true)")
             elseif mapping_type === Makie.categorical
-                return convert(Vector{Float64}, sort!(unique(values)))
+                return convert(Vector{Float64},1:length(unique(values)))
             else
                 return convert(Vector{Float64}, LinRange(limits..., n))
             end
@@ -212,7 +212,7 @@ function initialize_block!(cb::Colorbar)
         xmin, ymin = minimum(bb)
         xmax, ymax = maximum(bb)
         if mapping_type == Makie.categorical
-            colors = edges(1:length(colors))
+            colors = edges(colors)
         end
         s_scaled = scale.(colors)
         mini, maxi = extrema(s_scaled)
